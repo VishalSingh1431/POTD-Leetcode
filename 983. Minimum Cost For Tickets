@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int dp[370];
+    int fn(vector<int>&days, int c2,int c7, int c30,int i){
+     if(i>=days.size()) return 0;
+     if(dp[i]!=-1)return dp[i];
+
+     int i2=upper_bound(days.begin(),days.end(),days[i])-days.begin();
+     int i7=upper_bound(days.begin(),days.end(),days[i]+6)-days.begin();
+     int i30=upper_bound(days.begin(),days.end(),days[i]+29)-days.begin();
+     int ans=1e9;
+
+     ans=min(ans,fn(days,c2,c7,c30,i2)+c2);
+     ans=min(ans,fn(days,c2,c7,c30,i7)+c7);
+     ans=min(ans,fn(days,c2,c7,c30,i30)+c30);
+     return dp[i]=ans;
+    }
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        memset(dp,-1,sizeof(dp));
+        return fn(days,costs[0],costs[1],costs[2],0);
+    }
+};
