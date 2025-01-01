@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int maxScore(string s) {
+        int s1=count(s.begin(),s.end(),'1');
+        int ans=0,s0=0;
+        for(int i=0;i<s.size()-1;i++){
+            if(s[i]=='1')s1--;
+            else s0++;
+            ans=max(ans,s1+s0);
+        }
+        return ans;
+    }
+};
