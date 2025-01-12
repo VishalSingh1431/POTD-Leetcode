@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool is_poss(string s, string locked) {
+        int cng = 0, fix = 0;
+        int n = s.size();
+        if (n % 2 != 0 || (s[n - 1] == '(' && locked[n - 1] == '1') || (s[0] == ')' && locked[0] == '1'))
+            return false;
+
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                if (locked[i] == '1') fix++;
+                else cng++;
+            } 
+            else {
+                if (locked[i] == '1') fix--;
+                else cng++;
+            }
+
+            if (fix < 0) {
+                if (cng >= abs(fix)) {
+                    cng -= abs(fix);
+                    fix = 0;
+                } 
+                else {
+                    return false;
+                }
+            }
+        }
+        return fix <= cng;
+    }
+
+    bool canBeValid(string s, string locked) {
+        if (s.size() % 2 != 0) return false;
+
+        bool forwardCheck = is_poss(s, locked);
+        reverse(s.begin(), s.end());
+        reverse(locked.begin(), locked.end());
+
+        // Reverse ')' to '(' and '(' to ')' in reversed string for proper validation
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') s[i] = ')';
+            else s[i] = '(';
+        }
+
+        bool backwardCheck = is_poss(s, locked);
+        return forwardCheck && backwardCheck;
+    }
+};
