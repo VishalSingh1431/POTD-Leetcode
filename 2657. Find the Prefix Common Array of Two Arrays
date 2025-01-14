@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> findThePrefixCommonArray(vector<int>& a, vector<int>& b) {
+        vector<int>ans;
+        map<int,int>p,q;
+        for(int i=0;i<a.size();i++){
+            p[a[i]]++;
+            q[b[i]]++;
+            int sum=0;
+            for(auto &i:p){
+                if(q[i.first])sum++;
+            }
+            ans.push_back(sum);
+        }
+        return ans;
+    }
+};
