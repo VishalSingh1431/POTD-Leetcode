@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int xorAllNums(vector<int>& nums1, vector<int>& nums2) {
+        int xr=0;
+        int n1=nums1.size();
+        int n2=nums2.size();
+        if(n2%2==1)for(auto &it:nums1)xr^=it;
+        if(n1%2==1)for(auto &it:nums2)xr^=it;
+        return xr;
+    }
+};
