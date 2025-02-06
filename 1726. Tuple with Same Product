@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& a) {
+        int ans=0;
+        unordered_map<int,int>m;
+        for(int i=0;i<a.size();i++){
+            for(int j=i+1;j<a.size();j++){
+                 int pdt=a[i]*a[j];
+                 ans+=m[pdt];
+                 m[pdt]++;
+            }
+        }
+        return ans*8;
+    }
+};
