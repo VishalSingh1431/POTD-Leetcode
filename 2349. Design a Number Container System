@@ -1,0 +1,25 @@
+class NumberContainers {
+public:
+    unordered_map<int, set<int>> m;  
+    unordered_map<int, int> indexMap;  
+    NumberContainers() {
+        
+    }
+    
+    void change(int index, int number) {
+        if (indexMap.find(index) != indexMap.end()) {
+            int prevNum = indexMap[index];
+            m[prevNum].erase(index);
+            if (m[prevNum].empty()) {
+                m.erase(prevNum);
+            }
+        }
+        indexMap[index] = number;
+        m[number].insert(index);
+    }
+    
+    int find(int number) {
+        if (m.find(number) == m.end()) return -1;
+        return *m[number].begin();
+    }
+};
