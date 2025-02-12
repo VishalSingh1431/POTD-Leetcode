@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int d_sum(int n) {
+        int sum = 0;
+        while (n != 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        return sum;
+    }
+    int maximumSum(vector<int>& nums) {
+        int ans = -1;
+        map<int, int> m1, m2;
+        for (auto& i : nums) {
+            int dgt_sum = d_sum(i);
+            if (m1[dgt_sum] == 0) m1[dgt_sum] = i;
+            else if (m2[dgt_sum] == 0) m2[dgt_sum] = i;
+            else {
+                int p = max(m1[dgt_sum], m2[dgt_sum]);
+                m1[dgt_sum] = min(m1[dgt_sum], m2[dgt_sum]);
+                m2[dgt_sum] = p;
+                m1[dgt_sum] = max(m1[dgt_sum], i);
+            }
+            
+            if (m1[dgt_sum] && m2[dgt_sum])
+                ans = max(ans, m1[dgt_sum] + m2[dgt_sum]);
+        }
+        return ans;
+    }
+};
