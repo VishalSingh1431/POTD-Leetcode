@@ -1,0 +1,25 @@
+class Solution {
+public:
+     unordered_map<int, int> m;
+    int fn(int l, int r) {
+        int sum = 2;
+        while (m.find(l+r)!=m.end()) {
+            int p = l + r;
+            l = r;
+            r = p;
+            sum++;
+        }
+        return sum > 2 ? sum : 0;
+    }
+    int lenLongestFibSubseq(vector<int>& a) {
+        int ans = 0;
+        for (auto& i : a) m[i]++;
+
+        for (int i = 0; i < a.size(); i++) {
+            for (int j = i + 1; j < a.size(); j++) {
+                ans = max(ans, fn(a[i], a[j]));
+            }
+        }
+        return ans;
+    }
+};
