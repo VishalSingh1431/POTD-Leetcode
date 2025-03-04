@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int>pow3;
+    int fn(int n, int i){
+         if(n==0)return 1;
+         if(i>=pow3.size())return 0;
+
+         int ans =fn(n,i+1);
+         if(n>=pow3[i])ans |=fn(n-pow3[i],i+1);
+
+         return ans;
+    }
+    bool checkPowersOfThree(int n) {
+        int num=1;
+        pow3.push_back(num);
+        
+        while(num*3<=1e7){
+            num*=3;
+            pow3.push_back(num);
+        } 
+
+        return fn(n,0);
+    }
+};
